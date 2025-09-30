@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GreenTech Students — Inicio</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== Variables y reset básico ===== */
+        :root {
+            --bg: #07070a;
+            --panel: #0f1114;
+            --muted: #9aa3ab;
+            --accent: #40e0a6;
+            --glass: rgba(255,255,255,0.04);
+            --maxwidth: 1200px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html, body {
+            height: 100%
+        }
+
+        body {
+            font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: linear-gradient(180deg,var(--bg) 0%, #0a0a0d 60%);
+            color: #e6eef6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.4;
+        }
+
+        :target {
+            scroll-margin-top: 100px;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 60;
+            backdrop-filter: blur(6px);
+            background: linear-gradient(180deg, rgba(7,7,10,0.55), rgba(7,7,10,0.35));
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header-logo-section {
+            width: 100%;
+            max-width: var(--maxwidth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 20px 10px;
+        }
+
+        .header-nav-section {
+            width: 100%;
+            max-width: var(--maxwidth);
+            padding: 10px 20px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-top: 1px solid rgba(255,255,255,0.02);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+            .brand .logo-img {
+                width: 60px;
+                height: 60px;
+                border-radius: 10px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 800;
+                font-size: 14px;
+                box-shadow: 0 3px 14px rgba(0,0,0,0.5);
+            }
+
+            .brand span {
+                font-weight: 900;
+                letter-spacing: 1px;
+                font-size: 1.8rem;
+                color: #fff;
+                background: linear-gradient(90deg, #1abc9c, #40e0a6);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                text-shadow: 0 0 10px rgba(64,224,166,0.3);
+            }
+
+        nav.primary {
+            margin: 0;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+
+            .nav-list a {
+                position: relative;
+                color: var(--muted);
+                font-weight: 600;
+                text-decoration: none;
+                text-transform: uppercase;
+                font-size: 14px;
+                letter-spacing: 1px;
+                padding: 6px 4px;
+                transition: color .18s ease;
+            }
+
+                .nav-list a::after {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    height: 2px;
+                    bottom: -8px;
+                    background: linear-gradient(90deg,var(--accent), #9ff0d6);
+                    transform: scaleX(0);
+                    transform-origin: left;
+                    transition: transform .22s cubic-bezier(.2,.9,.2,1);
+                    border-radius: 2px;
+                    opacity: 0.95;
+                }
+
+                .nav-list a:hover {
+                    color: #fff
+                }
+
+                    .nav-list a:hover::after {
+                        transform: scaleX(1)
+                    }
+
+                .nav-list a.active {
+                    color: #fff
+                }
+
+                    .nav-list a.active::after {
+                        transform: scaleX(1)
+                    }
+
+        .burger {
+            display: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.02);
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+            .burger span {
+                display: block;
+                width: 18px;
+                height: 2px;
+                background: #dfe9ee;
+                border-radius: 1px;
+                transition: transform .2s;
+                box-shadow: 0 6px 0 #dfe9ee, 0 -6px 0 #dfe9ee;
+            }
+
+        .hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px 20px;
+            max-width: var(--maxwidth);
+            margin: calc(140px + 40px) auto 40px;
+            text-align: center;
+            background-image: url('https://images.unsplash.com/photo-1549673994-06ac9a43a051?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+        }
+            /* Quitamos el overlay original del hero para evitar parpadeos */
+            .hero::before {
+                display: none;
+            }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .eyebrow {
+            color: var(--accent);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 16px;
+            margin-bottom: 14px;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px,7vw,80px);
+            line-height: 0.92;
+            margin-bottom: 24px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -2px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        .hero p.lead {
+            color: #dbe8ee;
+            font-size: 20px;
+            margin-bottom: 30px;
+            max-width: 60ch;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-row {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform .12s ease, box-shadow .12s ease;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg,var(--accent), #7ef2c6);
+            color: #02221a;
+            box-shadow: 0 10px 40px rgba(64,224,166,0.2);
+        }
+
+        .btn-ghost {
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #dbe8ee;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(64,224,166,0.3);
+        }
+
+        .section {
+            max-width: var(--maxwidth);
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border-radius: 18px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 12px 60px rgba(2,6,9,0.55);
+            transition: transform .16s ease, box-shadow .16s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 25px 70px rgba(2,6,9,0.7);
+            }
+
+            .card h2 {
+                font-size: 28px;
+                margin-bottom: 16px;
+                color: #fff;
+                font-weight: 800;
+            }
+
+            .card p {
+                color: var(--muted);
+                font-size: 17px;
+                line-height: 1.6;
+                color: #fff;
+            }
+
+            /* Efecto holográfico para todas las cards */
+            .card::before {
+                content: "";
+                position: absolute;
+                top: -400%;
+                left: -400%;
+                width: 1000%;
+                height: 1000%;
+                background: conic-gradient(from 0deg, #b70b61, #7928ca, #15804e, #b70b61);
+                animation: spin 30s linear infinite;
+                z-index: 0;
+                opacity: 0;
+                transition: opacity 1.6s ease;
+            }
+
+            .card:hover::before {
+                opacity: 1;
+            }
+
+            .card::after {
+                content: "";
+                position: absolute;
+                inset: 2px;
+                background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+                border-radius: 18px;
+                z-index: 1;
+            }
+
+            .card > * {
+                position: relative;
+                z-index: 2;
+            }
+
+        /* Versión especial para el hero */
+        .hero-card {
+            background: transparent;
+            border-radius: 20px;
+            padding: 50px 30px;
+            text-align: center;
+        }
+
+            .hero-card::before {
+                content: "";
+                position: absolute;
+                top: -70%;
+                left: -75%;
+                width: 250%;
+                height: 250%;
+                background: conic-gradient(from 0deg, #ff0080, #7928ca, #40e0a6, #ff0080);
+                animation: spin 6s linear infinite;
+                z-index: 0;
+                opacity: 0;
+                transition: opacity 0.4s ease;
+            }
+
+            .hero-card:hover::before {
+                opacity: 1;
+            }
+
+            .hero-card::after {
+                content: "";
+                position: absolute;
+                inset: 2px;
+                background: rgba(0,0,0,0.7); /* capa oscura interna */
+                border-radius: 20px;
+                z-index: 1;
+            }
+
+            .hero-card > * {
+                position: relative;
+                z-index: 2;
+            }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        footer {
+            margin-top: 80px;
+            padding: 40px 20px;
+            background: transparent;
+            color: var(--muted);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+            footer .foot-inner {
+                max-width: var(--maxwidth);
+                margin: 0 auto;
+                display: flex;
+                justify-content: space-between;
+                gap: 20px;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+
+            footer a {
+                color: var(--muted);
+                text-decoration: underline;
+                font-size: 14px;
+            }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 320px;
+            height: 100vh;
+            background: linear-gradient(180deg,#0b0d10,#050608);
+            box-shadow: -30px 0 80px rgba(0,0,0,0.6);
+            transition: right .28s cubic-bezier(.2,.9,.2,1);
+            z-index: 70;
+            padding: 28px;
+        }
+
+            .mobile-menu.open {
+                right: 0
+            }
+
+            .mobile-menu ul {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 18px;
+                margin-top: 30px
+            }
+
+            .mobile-menu a {
+                color: #eaf6f0;
+                text-decoration: none;
+                font-weight: 700
+            }
+
+        @media (max-width: 980px) {
+            .header-nav-section {
+                display: none;
+            }
+
+            .burger {
+                display: flex;
+                margin-left: auto;
+            }
+
+            .hero {
+                flex-direction: column;
+                margin-top: calc(100px + 40px);
+            }
+
+            .hero-content {
+                text-align: center;
+            }
+
+            .nav-list {
+                display: none;
+            }
+
+            .header-logo-section {
+                justify-content: space-between;
+            }
+
+            .brand span {
+                font-size: 1.5rem;
+            }
+
+            .brand .logo-img {
+                width: auto;
+                height: 50px;
+            }
+        }
+
+        @media (max-width:600px) {
+            .hero h1 {
+                font-size: clamp(30px, 10vw, 50px);
+            }
+
+            .hero p.lead {
+                font-size: 16px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+                .card h2 {
+                    font-size: 24px;
+                }
+
+                .card p {
+                    font-size: 14px;
+                }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main" style="position:absolute;left:-9999px;top:auto;clip:rect(0 0 0 0);">Saltar al contenido</a>
+
+    <header>
+        <div class="header-logo-section">
+            <a class="brand" href="index.html">
+                <img class="logo-img" src="images/Logo greentech blanco.png" alt="Logo GreenTech"
+                     style="height:44px; width:auto; display:block; margin-left:0;">
+                <span></span>
+            </a>
+            <button class="burger" id="burger" aria-label="Abrir menú"><span></span></button>
+            <nav class="primary" aria-label="Navegación principal">
+                <ul class="nav-list" role="menubar">
+                    <li role="none"><a role="menuitem" href="sobre.html">Sobre nosotros</a></li>
+                    <li role="none"><a role="menuitem" href="charlas.html">Charlas</a></li>
+                    <li role="none"><a role="menuitem" href="proyectos.html">Proyectos</a></li>
+                    <li role="none"><a role="menuitem" href="concursos.html">Concursos</a></li>
+                    <li role="none"><a role="menuitem" href="excursiones.html">Excursiones</a></li>
+                    <li role="none"><a role="menuitem" href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="display:flex;gap:12px;align-items:center">
+                <img src="images/Logo greentech blanco.png" alt="Logo GreenTech" style="width:auto;height:44px;object-fit:contain;">
+                <strong>GreenTech</strong>
+            </div>
+            <button id="closeMobile" style="background:none;border:0;color:#cfeee0;font-weight:700">Cerrar</button>
+        </div>
+        <ul>
+            <li><a href="inicio.html">Inicio</a></li>
+            <li><a href="sobre.html">Sobre nosotros</a></li>
+            <li><a href="charlas.html">Charlas</a></li>
+            <li><a href="proyectos.html">Proyectos</a></li>
+            <li><a href="concursos.html">Concursos</a></li>
+            <li><a href="excursiones.html">Excursiones</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <main id="main">
+        <section class="hero" aria-label="Sección principal">
+            <div class="card hero-card">
+                <div class="hero-content">
+                    <div class="eyebrow">Impulsando el futuro sostenible</div>
+                    <h1>GreenTech Students UC3M</h1>
+                    <p class="lead">Somos la asociación de la Universidad Carlos III de Madrid dedicada a la innovación y el desarrollo en energías renovables.</p>
+                    <div class="cta-row">
+                        <a class="btn btn-primary" href="sobre.html">Conócenos</a>
+                        <a class="btn btn-ghost" href="proyectos.html">Explora Proyectos</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="que-hacemos" class="section">
+            <div class="card" style="text-align: center;">
+                <h2>¿Qué hacemos?</h2>
+                <p>En GreenTech Students, fomentamos la participación en proyectos innovadores, organizamos charlas con expertos del sector y coordinamos excursiones a instalaciones de energías renovables. Nuestro objetivo es inspirar y capacitar a la próxima generación de líderes en sostenibilidad.</p>
+                <div class="cta-row" style="margin-top: 30px;">
+                    <a class="btn btn-ghost" href="concursos.html">Ver concursos</a>
+                    <a class="btn btn-primary" href="charlas.html">Próximas Charlas</a>
+                    <a class="btn btn-ghost" href="excursiones.html">Ver excursiones</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="unete" class="section">
+            <div class="card" style="text-align: center;">
+                <h2>¡Únete a nuestra comunidad!</h2>
+                <p>Si eres un estudiante apasionado por la sostenibilidad, la ingeniería o simplemente quieres contribuir a un futuro más verde, te invitamos a ser parte de GreenTech Students. Aquí encontrarás un espacio para aprender, colaborar y hacer la diferencia.</p>
+                <div class="cta-row" style="margin-top: 30px;">
+                    <a class="btn btn-primary" href="contacto.html">Contactar</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="foot-inner">
+            <div>© <strong>GreenTech Students</strong> — Universidad Carlos III de Madrid</div>
+            <div style="display:flex;gap:12px;align-items:center">
+                <a href="/politica-privacidad">Política de Privacidad</a>
+                <a href="/terminos-servicio">Términos</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const burger = document.getElementById('burger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeBtn = document.getElementById('closeMobile');
+
+        burger?.addEventListener('click', () => {
+        mobileMenu.classList.add('open');
+        mobileMenu.setAttribute('aria-hidden','false');
+        });
+        closeBtn?.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        mobileMenu.setAttribute('aria-hidden','true');
+        });
+
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+        const sc = window.scrollY;
+        if (sc > 40) header.style.backdropFilter = 'blur(10px)';
+        else header.style.backdropFilter = 'blur(6px)';
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+        e.preventDefault();
+        const targetId = a.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+        const offsetTop = targetElement.offsetTop - 100;
+        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+        }
+        });
+        });
+    </script>
+<script>
+// --- 1. Detectar código Konami ---
+const konamiCode = [
+  "ArrowUp","ArrowUp","ArrowDown","ArrowDown",
+  "ArrowLeft","ArrowRight","ArrowLeft","ArrowRight",
+  "b","a"
+];
+let konamiIndex = 0;
+
+document.addEventListener("keydown", function(e) {
+  if (e.key === konamiCode[konamiIndex]) {
+    konamiIndex++;
+    if (konamiIndex === konamiCode.length) {
+      launchLogos(); // código completado
+      konamiIndex = 0;
+    }
+  } else {
+    konamiIndex = 0; // reset si fallas
+  }
+});
+
+// --- 2. Función para lanzar logos en cascada ---
+function launchLogos() {
+  for (let i = 0; i < 30; i++) {
+    setTimeout(() => {
+      createFallingLogo();
+    }, i * 200 + Math.random() * 300); 
+    // cada logo sale con un pequeño retraso (200ms + aleatorio)
+  }
+}
+
+// --- 3. Crear cada logo y animarlo ---
+function createFallingLogo() {
+  const logo = document.createElement("img");
+  logo.src = "images/Logo greentech blanco.png";
+  logo.classList.add("falling-logo");
+
+  // posición horizontal aleatoria
+  logo.style.left = Math.random() * window.innerWidth + "px";
+
+  // añadir al body
+  document.body.appendChild(logo);
+
+  // quitar después de caer (10s)
+  setTimeout(() => {
+    logo.remove();
+  }, 10000);
+}
+</script>
+
+<style>
+/* Estilo de los logos que caen */
+.falling-logo {
+  position: fixed;
+  top: -100px;
+  width: 60px; /* ajusta tamaño */
+  height: auto;
+  pointer-events: none;
+  animation: fall 2s linear forwards;
+  z-index: 9999;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+</style>
+
+
+</body>
+</html>

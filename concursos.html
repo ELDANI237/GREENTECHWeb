@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>GreenTech Students — Concursos</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== Variables y reset básico ===== */
+        :root {
+            --bg: #07070a;
+            --panel: #0f1114;
+            --muted: #9aa3ab;
+            --accent: #40e0a6;
+            --glass: rgba(255,255,255,0.04);
+            --maxwidth: 1200px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html, body {
+            height: 100%
+        }
+
+        body {
+            font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: linear-gradient(180deg,var(--bg) 0%, #0a0a0d 60%);
+            color: #e6eef6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.4;
+        }
+        /* Estilos generales */
+        :target {
+            scroll-margin-top: 100px;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 60;
+            backdrop-filter: blur(6px);
+            background: linear-gradient(180deg, rgba(7,7,10,0.55), rgba(7,7,10,0.35));
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header-logo-section {
+            width: 100%;
+            max-width: var(--maxwidth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 20px 10px;
+        }
+
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+            .brand .logo-img {
+                width: 60px;
+                height: 60px;
+                border-radius: 10px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 800;
+                font-size: 14px;
+                box-shadow: 0 3px 14px rgba(0,0,0,0.5);
+            }
+
+            .brand span {
+                font-weight: 900;
+                letter-spacing: 1px;
+                font-size: 1.8rem;
+                color: #fff;
+                background: linear-gradient(90deg, #1abc9c, #40e0a6);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                text-shadow: 0 0 10px rgba(64,224,166,0.3);
+            }
+
+        nav.primary {
+            margin: 0;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+
+            .nav-list a {
+                position: relative;
+                color: var(--muted);
+                font-weight: 600;
+                text-decoration: none;
+                text-transform: uppercase;
+                font-size: 14px;
+                letter-spacing: 1px;
+                padding: 6px 4px;
+                transition: color .18s ease;
+            }
+
+                .nav-list a::after {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    height: 2px;
+                    bottom: -8px;
+                    background: linear-gradient(90deg,var(--accent), #9ff0d6);
+                    transform: scaleX(0);
+                    transform-origin: left;
+                    transition: transform .22s cubic-bezier(.2,.9,.2,1);
+                    border-radius: 2px;
+                    opacity: 0.95;
+                }
+
+                .nav-list a:hover {
+                    color: #fff
+                }
+
+                    .nav-list a:hover::after {
+                        transform: scaleX(1)
+                    }
+
+                .nav-list a.active {
+                    color: #fff
+                }
+
+                    .nav-list a.active::after {
+                        transform: scaleX(1)
+                    }
+
+        .burger {
+            display: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.02);
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+            .burger span {
+                display: block;
+                width: 18px;
+                height: 2px;
+                background: #dfe9ee;
+                border-radius: 1px;
+                transition: transform .2s;
+                box-shadow: 0 6px 0 #dfe9ee, 0 -6px 0 #dfe9ee;
+            }
+
+        .hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px 20px;
+            max-width: var(--maxwidth);
+            margin: calc(140px + 40px) auto 40px;
+            gap: 36px;
+            text-align: center;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .eyebrow {
+            color: var(--accent);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 16px;
+            margin-bottom: 14px;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px,7vw,80px);
+            line-height: 0.92;
+            margin-bottom: 24px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -2px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        .hero p.lead {
+            color: #dbe8ee;
+            font-size: 20px;
+            margin-bottom: 30px;
+            max-width: 60ch;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-row {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform .12s ease, box-shadow .12s ease;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg,var(--accent), #7ef2c6);
+            color: #02221a;
+            box-shadow: 0 10px 40px rgba(64,224,166,0.2);
+        }
+
+        .btn-ghost {
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #dbe8ee;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(64,224,166,0.3);
+        }
+
+        .section {
+            max-width: var(--maxwidth);
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border-radius: 18px;
+            padding: 30px;
+            min-height: auto;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 12px 60px rgba(2,6,9,0.55);
+            transition: transform .16s ease, box-shadow .16s ease;
+        }
+
+            .card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 25px 70px rgba(2,6,9,0.7);
+            }
+
+            .card h2 {
+                font-size: 28px;
+                margin-bottom: 16px;
+                color: #fff;
+                font-weight: 800;
+            }
+
+            .card h3 {
+                font-size: 20px;
+                margin-bottom: 12px;
+                color: #fff;
+                font-weight: 700;
+                margin-top: 24px;
+            }
+
+            .card p {
+                color: var(--muted);
+                font-size: 17px;
+                line-height: 1.6;
+            }
+
+            .card ul {
+                color: var(--muted);
+                font-size: 17px;
+                line-height: 1.6;
+                padding-left: 20px;
+                margin: 16px 0;
+            }
+
+            .card li {
+                margin-bottom: 8px;
+            }
+
+        /* ESTILOS NUEVOS PARA EL TÍTULO Y LOGOS (VERSIÓN FINAL) */
+        .hero-title-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .contest-title {
+            font-size: clamp(40px, 7vw, 80px) !important;
+            line-height: 0.9;
+            margin-bottom: 0;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -2px;
+            text-align: center;
+        }
+
+        .logos-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .collaboration-text {
+            color: var(--muted);
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .logos-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .wwc-hero-logo {
+            width: 180px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .fundacion-uc3-logo {
+            width: 220px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        /* Estilos para la sección de Premios */
+        .awards-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            background: rgba(64, 224, 166, 0.04);
+            border: 1px solid rgba(64, 224, 166, 0.1);
+        }
+
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            width: 100%;
+        }
+
+        .award-card {
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+            border: 1px solid transparent;
+            transition: transform 0.2s ease;
+        }
+
+            .award-card:hover {
+                transform: translateY(-4px);
+            }
+
+            .award-card.gold {
+                background: #f1c40f;
+                color: #000;
+                border-color: #f1c40f;
+            }
+
+            .award-card.silver {
+                background: #95a5a6;
+                color: #000;
+                border-color: #95a5a6;
+            }
+
+            .award-card.bronze {
+                background: #c3845b;
+                color: #000;
+                border-color: #c3845b;
+            }
+
+            .award-card h4 {
+                font-size: 20px;
+                margin-bottom: 5px;
+                font-weight: 800;
+            }
+
+            .award-card p {
+                font-size: 28px;
+                font-weight: 900;
+                color: #fff;
+            }
+
+        .special-awards {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .special-award-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            min-width: 200px;
+            transition: transform 0.2s ease;
+        }
+
+            .special-award-card:hover {
+                transform: translateY(-3px);
+            }
+
+            .special-award-card h5 {
+                font-size: 16px;
+                font-weight: 600;
+                color: var(--accent);
+                margin-bottom: 4px;
+            }
+
+            .special-award-card p {
+                font-size: 20px;
+                font-weight: 800;
+                color: #fff;
+            }
+
+        /* Nuevo: Estilos para la tabla */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            min-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            color: #e6eef6;
+        }
+
+            .styled-table thead tr {
+                background-color: var(--accent);
+                color: #02221a;
+                text-align: left;
+            }
+
+            .styled-table th,
+            .styled-table td {
+                padding: 12px 15px;
+            }
+
+            .styled-table tbody tr {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                background-color: var(--panel);
+            }
+
+                .styled-table tbody tr:nth-of-type(even) {
+                    background-color: #1a1e22;
+                }
+
+                .styled-table tbody tr:last-of-type {
+                    border-bottom: 2px solid var(--accent);
+                }
+
+                .styled-table tbody tr.active-row {
+                    font-weight: bold;
+                    color: var(--accent);
+                }
+
+        /* Nuevo: estilos para los pasos */
+        .steps-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0 0;
+        }
+
+            .steps-list li {
+                background: var(--panel);
+                border: 1px solid rgba(255, 255, 255, 0.03);
+                border-radius: 10px;
+                padding: 20px;
+                margin-bottom: 15px;
+                display: flex;
+                align-items: center;
+                gap: 20px;
+            }
+
+                .steps-list li strong {
+                    font-size: 24px;
+                    color: var(--accent);
+                }
+
+                .steps-list li div {
+                    flex: 1;
+                }
+
+                .steps-list li h3 {
+                    margin-bottom: 5px;
+                    font-size: 18px;
+                }
+
+        /* Nuevo: grid para modelos 3D */
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .model-viewer-card {
+            background: var(--panel);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            padding: 15px;
+        }
+
+            .model-viewer-card h4 {
+                margin-bottom: 10px;
+                color: #fff;
+            }
+
+        .sketchfab-embed-wrapper {
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 80px;
+            padding: 40px 20px;
+            background: transparent;
+            color: var(--muted);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+            footer .foot-inner {
+                max-width: var(--maxwidth);
+                margin: 0 auto;
+                display: flex;
+                justify-content: space-between;
+                gap: 20px;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+
+            footer a {
+                color: var(--muted);
+                text-decoration: underline;
+                font-size: 14px;
+            }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 320px;
+            height: 100vh;
+            background: linear-gradient(180deg,#0b0d10,#050608);
+            box-shadow: -30px 0 80px rgba(0,0,0,0.6);
+            transition: right .28s cubic-bezier(.2,.9,.2,1);
+            z-index: 70;
+            padding: 28px;
+        }
+
+            .mobile-menu.open {
+                right: 0
+            }
+
+            .mobile-menu ul {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 18px;
+                margin-top: 30px
+            }
+
+            .mobile-menu a {
+                color: #eaf6f0;
+                text-decoration: none;
+                font-weight: 700
+            }
+
+        /* Media queries para responsividad */
+        @media (max-width: 980px) {
+            .header-nav-section {
+                display: none;
+            }
+
+            .burger {
+                display: flex;
+                margin-left: auto;
+            }
+
+            .hero {
+                flex-direction: column;
+                margin-top: calc(100px + 40px);
+            }
+
+            .hero-content {
+                text-align: center;
+            }
+
+            .nav-list {
+                display: none;
+            }
+
+            .header-logo-section {
+                justify-content: space-between;
+            }
+
+            .brand span {
+                font-size: 1.5rem;
+            }
+
+            .brand .logo-img {
+                width: auto;
+                height: 50px;
+            }
+
+            .logos-row {
+                flex-direction: column;
+                gap: 25px;
+            }
+
+            .wwc-hero-logo {
+                width: 150px;
+            }
+
+            .fundacion-uc3-logo {
+                width: 180px;
+            }
+        }
+
+        @media (max-width:600px) {
+            .hero h1 {
+                font-size: clamp(30px, 10vw, 50px);
+            }
+
+            .hero p.lead {
+                font-size: 16px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+                .card h2 {
+                    font-size: 24px;
+                }
+
+                .card p {
+                    font-size: 14px;
+                }
+
+                .card ul {
+                    font-size: 14px;
+                }
+
+            .contest-title {
+                font-size: clamp(30px, 10vw, 50px) !important;
+            }
+
+            .wwc-hero-logo {
+                width: 130px;
+            }
+
+            .fundacion-uc3-logo {
+                width: 160px;
+            }
+        }
+
+        /* Estilos específicos para la nueva sección de premios */
+        .prizes-details-container {
+            background: linear-gradient(180deg, rgba(64,224,166,0.05), rgba(64,224,166,0.02));
+            border: 1px solid rgba(64,224,166,0.1);
+            border-radius: 12px;
+            padding: 10px 20px;
+        }
+
+            .prizes-details-container summary {
+                color: var(--accent) !important;
+                font-weight: 700 !important;
+                font-size: 1.1em;
+                padding: 10px 0;
+                cursor: pointer;
+                transition: color 0.2s ease;
+            }
+
+                .prizes-details-container summary:hover {
+                    color: #fff !important;
+                }
+
+        .prizes-list p {
+            text-align: center;
+        }
+
+        .prize-highlight {
+            font-weight: 900;
+            color: var(--accent);
+            text-shadow: 0 0 8px rgba(64,224,166,0.5);
+        }
+    </style>
+</head>
+<body>
+    <a href="#main" style="position:absolute;left:-9999px;top:auto;clip:rect(0 0 0 0);">Saltar al contenido</a>
+
+    <header>
+        <div class="header-logo-section">
+            <a class="brand" href="index.html">
+                <img class="logo-img" src="images/Logo greentech blanco.png" alt="Logo GreenTech"
+                     style="height:44px; width:auto; display:block; margin-left:0;">
+                <span></span>
+            </a>
+            <button class="burger" id="burger" aria-label="Abrir menú"><span></span></button>
+            <nav class="primary" aria-label="Navegación principal">
+                <ul class="nav-list" role="menubar">
+                    <li role="none"><a role="menuitem" href="sobre.html">Sobre nosotros</a></li>
+                    <li role="none"><a role="menuitem" href="charlas.html">Charlas</a></li>
+                    <li role="none"><a role="menuitem" href="proyectos.html">Proyectos</a></li>
+                    <li role="none"><a role="menuitem" href="concursos.html" class="active">Concursos</a></li>
+                    <li role="none"><a role="menuitem" href="excursiones.html">Excursiones</a></li>
+                    <li role="none"><a role="menuitem" href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="display:flex;gap:12px;align-items:center">
+                <img src="images/Logo greentech blanco.png" alt="Logo GreenTech" style="width:auto;height:44px;object-fit:contain;">
+                <strong>GreenTech</strong>
+            </div>
+            <button id="closeMobile" style="background:none;border:0;color:#cfeee0;font-weight:700">Cerrar</button>
+        </div>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="sobre.html">Sobre nosotros</a></li>
+            <li><a href="charlas.html">Charlas</a></li>
+            <li><a href="proyectos.html">Proyectos</a></li>
+            <li><a href="concursos.html" class="active">Concursos</a></li>
+            <li><a href="excursiones.html">Excursiones</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <main id="main">
+        <section class="hero" aria-label="Sección principal">
+            <div class="hero-content">
+                <div class="eyebrow">Concursos</div>
+
+                <div class="hero-title-area">
+                    <h1 class="contest-title">Win the Wind Challenge</h1>
+
+                    <div class="logos-container">
+                        <div class="collaboration-text">Con el apoyo de</div>
+                        <div class="logos-row">
+                            <img src="images/WWCPNG.png" alt="Logo Win the Wind Challenge" class="wwc-hero-logo">
+                            <img src="images/fundaciónuc3.png" alt="Colaboración con Fundación UC3M" class="fundacion-uc3-logo">
+                        </div>
+                    </div>
+                </div>
+
+                <p class="lead">Concurso de diseño de turbinas eólicas horizontales</p>
+
+                <div class="cta-row">
+                    <a class="btn btn-primary" href="#about">Detalles del concurso</a>
+                    <a class="btn btn-ghost" href="#proxima-edicion">Ir al formulario de inscripción</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <h2 style="font-size:22px;margin-bottom:8px;color:#fff">Acerca del Concurso</h2>
+            <p style="color:var(--muted);margin-bottom:12px">Evalúa el diseño de turbinas eólicas creadas por estudiantes en el túnel de viento de la UC3M.</p>
+            <div class="card">
+                <h3>Objetivo</h3>
+                <p>Win the Wind Challenge es un concurso que tiene como objetivo evaluar distintos diseños originales de turbinas eólicas de eje horizontal creadas por estudiantes, las cuales serán probadas en el túnel de viento de la Escuela Politécnica Superior de la Universidad Carlos III de Madrid. Se abre la posibilidad de que la turbina ganadora represente a la universidad en el International Small Wind Turbine Contest (ISWTC).</p>
+            </div>
+
+            <div class="card" style="margin-top:20px">
+                <h3>¿Quiénes pueden participar?</h3>
+                <p>El concurso va dirigido a estudiantes de la Universidad Carlos III de Madrid, sin importar el grado. Es recomendable tener conocimientos en programas de diseño asistido por ordenador (CAD) para el diseño de la turbina, pero no es obligatorio. También se valorarán diseños hechos a mano, siempre que cumplan con las bases del concurso.</p>
+            </div>
+        </section>
+
+        <section id="reglas" class="section">
+            <h2 style="font-size:22px;margin-bottom:8px;color:#fff">Bases y Requisitos</h2>
+            <p style="color:var(--muted);margin-bottom:12px">Condiciones de diseño y requisitos técnicos.</p>
+            <div class="card">
+                <h3>Condiciones de diseño</h3>
+                <p>Para la realización de la turbina, solo hay dos condiciones:</p>
+                <ul style="list-style-type:disc; padding-left:25px; margin-top:10px; color:var(--muted)">
+                    <li>El diseño de la turbina debe ser un aerogenerador de eje horizontal (HAWT).</li>
+                    <li>El diseño debe estar hecho a escala para poder ser testado en el túnel de viento.</li>
+                </ul>
+                <p style="margin-top:10px">Se recomienda el uso del **soporte universal** que proporcionamos para asegurar un correcto funcionamiento en el túnel de viento.</p>
+            </div>
+
+            <div class="card" style="margin-top:20px">
+                <h3>Criterios de evaluación</h3>
+                <p>Los proyectos se valorarán basándose en los siguientes criterios:</p>
+                <div class="table-container">
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>Criterio</th>
+                                <th>Descripción</th>
+                                <th>Puntuación (sobre 10)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="active-row">
+                                <td>Potencia</td>
+                                <td>Medida en el túnel de viento. Es la parte más importante.</td>
+                                <td>40%</td>
+                            </tr>
+                            <tr>
+                                <td>Innovación</td>
+                                <td>Originalidad en el diseño y materiales.</td>
+                                <td>30%</td>
+                            </tr>
+                            <tr class="active-row">
+                                <td>Diseño</td>
+                                <td>Estética del diseño y acabados.</td>
+                                <td>20%</td>
+                            </tr>
+                            <tr>
+                                <td>Documentación</td>
+                                <td>Claridad en la memoria técnica y planos.</td>
+                                <td>10%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="pasos" class="section">
+            <h2 style="font-size:22px;margin-bottom:8px;color:#fff">¿Cómo participar?</h2>
+            <p style="color:var(--muted);margin-bottom:12px">Sigue estos sencillos pasos para inscribirte y enviar tu diseño.</p>
+            <ul class="steps-list">
+                <li>
+                    <strong>1</strong>
+                    <div>
+                        <h3>Inscripción</h3>
+                        <p>Rellena el formulario de inscripción antes de la fecha límite. Esto nos permite saber cuántos equipos participarán.</p>
+                    </div>
+                </li>
+                <li>
+                    <strong>2</strong>
+                    <div>
+                        <h3>Diseño y construcción</h3>
+                        <p>Diseña tu turbina eólica y constrúyela. Te recomendamos usar nuestro soporte universal.</p>
+                    </div>
+                </li>
+                <li>
+                    <strong>3</strong>
+                    <div>
+                        <h3>Envío de proyecto</h3>
+                        <p>Envía tu proyecto junto con la memoria técnica y los planos de diseño. Asegúrate de que tu modelo esté listo para ser probado.</p>
+                    </div>
+                </li>
+                <li>
+                    <strong>4</strong>
+                    <div>
+                        <h3>Test en túnel de viento</h3>
+                        <p>Los proyectos serán probados en el túnel de viento de la UC3M para medir su potencia real y eficiencia.</p>
+                    </div>
+                </li>
+                <li>
+                    <strong>5</strong>
+                    <div>
+                        <h3>Anuncio de ganadores</h3>
+                        <p>Los ganadores se anunciarán en un evento especial y en nuestras redes sociales, ¡mantente atento!</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section id="soporte" class="section">
+            <h2 style="font-size:22px;margin-bottom:8px;color:#fff">Soporte y Herramientas</h2>
+            <p style="color:var(--muted);margin-bottom:12px">Recursos que te ayudarán a diseñar y construir tu turbina.</p>
+            <div class="card">
+                <h3>Soporte universal</h3>
+                <p>Aquí se muestra el soporte universal necesario para participar en el concurso. Puedes descargar el archivo 3D de forma gratuita desde Sketchfab.</p>
+                <div class="sketchfab-embed-wrapper" style="height: 250px; margin-top: 15px;">
+                    <iframe title="Soporte Universal Greentech" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/a82b603a703b45198aa5a8f6cf6ee95f/embed?autospin=1&autostart=1"> </iframe>
+                </div>
+            </div>
+            <div class="card" style="margin-top:20px">
+                <h3>Modelos 3D de ejemplo</h3>
+                <p>A continuación se muestran 3 turbinas de ejemplo que cumplen con las condiciones de diseño. Puedes usarlas como inspiración.</p>
+                <div class="models-grid">
+                    <div class="model-viewer-card">
+                        <h4>Modelo 1</h4>
+                        <div class="sketchfab-embed-wrapper" style="height: 250px;">
+                            <iframe title="Turbina con medidas correctas 1" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/38e146c9d4284ebea8c6868387e3fb60/embed?autospin=1&autostart=1"> </iframe>
+                        </div>
+                    </div>
+                    <div class="model-viewer-card">
+                        <h4>Modelo 2</h4>
+                        <div class="sketchfab-embed-wrapper" style="height: 250px;">
+                            <iframe title="5 Aspas Con Medidas Correctas Para Concurso Cm" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/015d54671f3c4fc99277e4d1da6d3a9f/embed?autospin=1&autostart=1"> </iframe>
+                        </div>
+                    </div>
+                    <div class="model-viewer-card">
+                        <h4>Modelo 3</h4>
+                        <div class="sketchfab-embed-wrapper" style="height: 250px;">
+                            <iframe title="Triple Toroidal" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/a159bcd81a5447418a85945f290911ee/embed?autospin=1&autostart=1"> </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="inscripcion" class="section" style="margin-top:30px">
+            <div class="card" style="text-align:center">
+                <h2>¿Listo para el desafío?</h2>
+                <p style="color:var(--muted);margin-bottom:20px">Inscríbete ahora y demuestra tu talento. ¡Te esperamos!</p>
+                <a class="btn btn-primary" href="#proxima-edicion">Ir al formulario de inscripción</a>
+            </div>
+        </section>
+
+        <section id="historial" class="section">
+            <h2 style="font-size:22px;margin-bottom:8px;color:#fff">Edición 2025: Un éxito rotundo</h2>
+
+            <p style="color:var(--muted);margin-bottom:12px">La primera edición del Win the Wind Challenge fue un gran éxito. Aquí puedes ver a los ganadores en el túnel de viento de la UC3M.</p>
+
+            <!DOCTYPE html>
+            <html lang="es">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Resultados Win the Wind Challenge 2025</title>
+                <style>
+                    :root {
+                        --bg: #07070a;
+                        --panel: #0f1114;
+                        --muted: #9aa3ab;
+                        --accent: #40e0a6;
+                        --glass: rgba(255,255,255,0.04);
+                        --maxwidth: 1200px;
+                    }
+
+                    * {
+                        box-sizing: border-box;
+                        margin: 0;
+                        padding: 0;
+                    }
+
+                    body {
+                        font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+                        background: linear-gradient(180deg,var(--bg) 0%, #0a0a0d 60%);
+                        color: #e6eef6;
+                        line-height: 1.6;
+                        padding: 20px;
+                    }
+
+                    .container {
+                        max-width: var(--maxwidth);
+                        margin: 0 auto;
+                        background: var(--panel);
+                        border-radius: 12px;
+                        padding: 30px;
+                        box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+                        border: 1px solid rgba(255,255,255,0.05);
+                    }
+
+                    h1 {
+                        color: var(--accent);
+                        text-align: center;
+                        margin-bottom: 30px;
+                        font-size: 2.5rem;
+                    }
+
+                    h2 {
+                        color: #fff;
+                        margin: 25px 0 15px;
+                        border-bottom: 2px solid var(--accent);
+                        padding-bottom: 8px;
+                    }
+
+                    .winners-grid {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                        gap: 20px;
+                        margin: 30px 0;
+                    }
+
+                    .winner-card {
+                        background: linear-gradient(135deg, rgba(64,224,166,0.1), rgba(64,224,166,0.05));
+                        border-radius: 12px;
+                        padding: 20px;
+                        text-align: center;
+                        border: 1px solid rgba(64,224,166,0.2);
+                        transition: transform 0.3s ease;
+                    }
+
+                        .winner-card:hover {
+                            transform: translateY(-5px);
+                        }
+
+                        .winner-card.gold {
+                            background: linear-gradient(135deg, rgba(241,196,15,0.15), rgba(241,196,15,0.05));
+                            border-color: rgba(241,196,15,0.3);
+                        }
+
+                        .winner-card.silver {
+                            background: linear-gradient(135deg, rgba(149,165,166,0.15), rgba(149,165,166,0.05));
+                            border-color: rgba(149,165,166,0.3);
+                        }
+
+                        .winner-card.bronze {
+                            background: linear-gradient(135deg, rgba(195,132,91,0.15), rgba(195,132,91,0.05));
+                            border-color: rgba(195,132,91,0.3);
+                        }
+
+                        .winner-card h3 {
+                            font-size: 1.5rem;
+                            margin-bottom: 10px;
+                        }
+
+                        .winner-card .prize {
+                            font-size: 1.8rem;
+                            font-weight: 800;
+                            margin: 10px 0;
+                            color: var(--accent);
+                        }
+
+                        .winner-card.gold .prize {
+                            color: #f1c40f;
+                        }
+
+                        .winner-card.silver .prize {
+                            color: #95a5a6;
+                        }
+
+                        .winner-card.bronze .prize {
+                            color: #c3845b;
+                        }
+
+                        .winner-card .turbine-name {
+                            font-style: italic;
+                            color: var(--muted);
+                        }
+
+                    .results-table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin: 30px 0;
+                        background: rgba(255,255,255,0.02);
+                        border-radius: 8px;
+                        overflow: hidden;
+                    }
+
+                        .results-table th {
+                            background: var(--accent);
+                            color: #02221a;
+                            padding: 15px;
+                            text-align: left;
+                            font-weight: 700;
+                        }
+
+                        .results-table td {
+                            padding: 12px 15px;
+                            border-bottom: 1px solid rgba(255,255,255,0.05);
+                        }
+
+                        .results-table tr:nth-child(even) {
+                            background: rgba(255,255,255,0.02);
+                        }
+
+                        .results-table tr:hover {
+                            background: rgba(64,224,166,0.05);
+                        }
+
+                    .highlight {
+                        font-weight: 700;
+                        color: var(--accent);
+                    }
+
+                    .gold-cell {
+                        background: rgba(241,196,15,0.1);
+                    }
+
+                    .silver-cell {
+                        background: rgba(149,165,166,0.1);
+                    }
+
+                    .bronze-cell {
+                        background: rgba(195,132,91,0.1);
+                    }
+
+                    .parameter-info {
+                        margin: 20px 0;
+                        padding: 15px;
+                        background: rgba(64,224,166,0.05);
+                        border-left: 4px solid var(--accent);
+                        border-radius: 4px;
+                    }
+
+                        .parameter-info h4 {
+                            margin-bottom: 10px;
+                            color: var(--accent);
+                        }
+
+                    @media (max-width: 768px) {
+                        .container {
+                            padding: 15px;
+                        }
+
+                        .results-table {
+                            font-size: 0.85rem;
+                        }
+
+                            .results-table th,
+                            .results-table td {
+                                padding: 8px 10px;
+                            }
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <h1>Resultados Win the Wind Challenge 2025</h1>
+
+                    <h2>Ganadores del Concurso</h2>
+                    <div class="winners-grid">
+                        <div class="winner-card gold">
+                            <h3>🥇 Primer Puesto</h3>
+                            <div class="prize">300€</div>
+                            <div class="winner-name">Gabriel Graziani</div>
+                            <div class="turbine-name">Turbina T5</div>
+                        </div>
+
+                        <div class="winner-card silver">
+                            <h3>🥈 Segundo Puesto</h3>
+                            <div class="prize">200€</div>
+                            <div class="winner-name">Pablo Borderías</div>
+                            <div class="turbine-name">Bernouilli Tugboat (T2)</div>
+                        </div>
+
+                        <div class="winner-card bronze">
+                            <h3>🥉 Tercer Puesto</h3>
+                            <div class="prize">100€</div>
+                            <div class="winner-name">Gabriel Wyatt Brondel y César Perdomo</div>
+                            <div class="turbine-name">Flor de Azucena (T6)</div>
+                        </div>
+
+                        <div class="winner-card">
+                            <h3>🏅 Diseño Más Innovador</h3>
+                            <div class="prize">50€</div>
+                            <div class="winner-name">Daniel Gómez</div>
+                            <div class="turbine-name">Turbina de Dani (T1)</div>
+                        </div>
+
+                        <div class="winner-card">
+                            <h3>🎨 Diseño Más Estético</h3>
+                            <div class="prize">50€</div>
+                            <div class="winner-name">Pablo Borderías</div>
+                            <div class="turbine-name">Bernouilli Tugboat (T2)</div>
+                        </div>
+                    </div>
+
+                    <h2>Resultados Técnicos Detallados</h2>
+
+                    <div class="parameter-info">
+                        <h4>Parámetros de Evaluación</h4>
+                        <p>Las turbinas fueron evaluadas según el índice: <span class="highlight">Potencia³ / Masa de las aspas (W³/kg)</span></p>
+                        <p>Donde: Masa de las aspas = Masa total - Masa del soporte universal (7g)</p>
+                    </div>
+
+                    <div style="overflow-x: auto;">
+                        <table class="results-table">
+                            <thead>
+                                <tr>
+                                    <th>Parámetro</th>
+                                    <th>Gabriel Graziani (T5)</th>
+                                    <th>Bernouilli Tugboat (T2)</th>
+                                    <th>Flor de Azucena (T6)</th>
+                                    <th>Turbina de Dani (T1)</th>
+                                    <th>Aunturbina (T4)</th>
+                                    <th>Needle turbine (T7)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Voltaje (V) a 10 m/s</td>
+                                    <td class="gold-cell highlight">4.90</td>
+                                    <td class="silver-cell">4.13</td>
+                                    <td class="bronze-cell">4.10</td>
+                                    <td>2.62</td>
+                                    <td>0.00</td>
+                                    <td>0.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Potencia (W)</td>
+                                    <td class="gold-cell highlight">1.09</td>
+                                    <td class="silver-cell">0.78</td>
+                                    <td class="bronze-cell">0.77</td>
+                                    <td>0.31</td>
+                                    <td>0.00</td>
+                                    <td>0.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Coeficiente de Potencia (Cp)</td>
+                                    <td class="gold-cell highlight">0.17</td>
+                                    <td class="silver-cell">0.14</td>
+                                    <td class="bronze-cell">0.14</td>
+                                    <td>0.06</td>
+                                    <td>0.00</td>
+                                    <td>0.00</td>
+                                </tr>
+                                <tr>
+                                    <td>% del Límite de Betz</td>
+                                    <td class="gold-cell highlight">29.4%</td>
+                                    <td class="silver-cell">23.6%</td>
+                                    <td class="bronze-cell">23.2%</td>
+                                    <td>9.5%</td>
+                                    <td>0.0%</td>
+                                    <td>0.0%</td>
+                                </tr>
+                                <tr>
+                                    <td>Masa total (kg)</td>
+                                    <td>0.021</td>
+                                    <td>0.027</td>
+                                    <td>0.024</td>
+                                    <td>0.039</td>
+                                    <td>0.013</td>
+                                    <td>0.027</td>
+                                </tr>
+                                <tr>
+                                    <td>Masa de aspas (kg)</td>
+                                    <td>0.014</td>
+                                    <td>0.020</td>
+                                    <td>0.017</td>
+                                    <td>0.032</td>
+                                    <td>0.006</td>
+                                    <td>0.020</td>
+                                </tr>
+                                <tr>
+                                    <td>Índice (Potencia³ / Masa aspas)</td>
+                                    <td class="gold-cell highlight">93.1 W³/kg</td>
+                                    <td class="silver-cell">29.3 W³/kg</td>
+                                    <td class="bronze-cell">26.8 W³/kg</td>
+                                    <td>0.9 W³/kg</td>
+                                    <td>0.0 W³/kg</td>
+                                    <td>0.0 W³/kg</td>
+                                </tr>
+                                <tr>
+                                    <td>Potencia/Área (W/m²)</td>
+                                    <td class="gold-cell highlight">114.9</td>
+                                    <td class="silver-cell">81.7</td>
+                                    <td class="bronze-cell">80.6</td>
+                                    <td>32.8</td>
+                                    <td>0.0</td>
+                                    <td>0.0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h2>Parámetros de Evaluación</h2>
+                    <div class="parameter-info">
+                        <h4>Condiciones de Prueba</h4>
+                        <ul>
+                            <li>Diámetro máximo de área de barrido: 0.11 m</li>
+                            <li>Resistencia eléctrica: 22 Ω</li>
+                            <li>Densidad del aire: 1.2 kg/m³</li>
+                            <li>Velocidad del viento: 10 m/s</li>
+                            <li>Límite de Betz (Cp máximo teórico): 0.59</li>
+                        </ul>
+                    </div>
+
+                    <div class="parameter-info">
+                        <h4>Fórmulas Utilizadas</h4>
+                        <ul>
+                            <li>Potencia (W) = V² / R</li>
+                            <li>Coeficiente de Potencia (Cp) = Potencia / (0.5 × ρ × A × v³)</li>
+                            <li>% del Límite de Betz = Cp / 0.59</li>
+                            <li>Índice de Evaluación = Potencia³ / Masa de aspas</li>
+                        </ul>
+                    </div>
+                </div>
+            </body>
+        </html>
+
+        <div style="text-align:center; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:20px;border-radius:12px;border:1px solid rgba(255,255,255,0.03); margin-top: 20px;">
+            <img src="images/ganadoresWWC25.jpg" alt="Ganadores del concurso Win the Wind Challenge 2025" style="max-width:100%; height:auto; border-radius:8px; margin-bottom:15px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+            <p style="font-style:italic;color:var(--muted);font-size:14px">Ganadores de la primera edición del Win the Wind Challenge en el salón de grados de la UC3M.</p>
+        </div>
+    </section>
+    </section>
+<!-- Sección Bases del Concurso 2025 -->
+<section id="basesConcurso" class="section">
+  <h2>Bases del concurso 2025 📑</h2>
+  
+  <!-- Opción 1: Mostrar PDF incrustado -->
+  <embed src="pdf/Bases de Win the Wind Challenge.pdf" type="application/pdf" width="100%" height="600px" />
+
+  <!-- Opción 2: Enlace para descargar o abrir -->
+  <p>
+    <a href="pdf/Bases de Win the Wind Challenge.pdf" target="_blank">📥 Descargar bases en PDF</a>
+  </p>
+</section>
+    <section id="proxima-edicion" class="section">
+        <div class="card" style="margin-top:20px;text-align:center">
+            <h3>Próxima edición: 2026</h3>
+            <p>La segunda edición del concurso, la de 2026, está en preparación. ¡Mantente atento a nuestras redes sociales y página web para conocer todos los detalles de la nueva convocatoria!</p>
+            <p style="color:red; font-weight:700; margin-top:15px;">⚠️ El formulario de inscripción para la edición 2026 aún no está disponible.</p>
+        </div>
+
+
+
+    <footer>
+        <div class="foot-inner">
+            <div>© <strong>GreenTech Students</strong> — Universidad Carlos III de Madrid</div>
+            <div style="display:flex;gap:12px;align-items:center">
+                <a href="/politica-privacidad">Política de Privacidad</a>
+                <a href="/terminos-servicio">Términos</a>
+            </div>
+        </div>
+    </footer>
+</main>
+
+<script>
+    // Mobile menu toggle
+    const burger = document.getElementById('burger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeBtn = document.getElementById('closeMobile');
+
+    burger?.addEventListener('click', () => {
+    mobileMenu.classList.add('open');
+    mobileMenu.setAttribute('aria-hidden','false');
+    });
+    closeBtn?.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    mobileMenu.setAttribute('aria-hidden','true');
+    });
+
+    // Header compact on scroll (subtle)
+    const header = document.querySelector('header');
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+    const sc = window.scrollY;
+    if (sc > 40) header.style.backdropFilter = 'blur(10px)';
+    else header.style.backdropFilter = 'blur(6px)';
+    lastScroll = sc;
+    });
+
+    // Optional: smooth scroll for internal links
+    // Ajuste de scroll para enlaces internos
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+    e.preventDefault();
+    const targetId = a.getAttribute('href');
+    const targetElement = document.querySelector(targetId);
+
+    if (targetElement) {
+    // Offset de 100px para el encabezado fijo
+    const offsetTop = targetElement.offsetTop - 100;
+
+    window.scrollTo({
+    top: offsetTop,
+    behavior: 'smooth'
+    });
+    }
+    });
+    });
+</script>
+</body>
+</html>

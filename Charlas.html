@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>GreenTech Students — Charlas</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== Variables y reset (Original) ===== */
+        :root {
+            --bg: #07070a;
+            --panel: #0f1114;
+            --muted: #9aa3ab;
+            --accent: #40e0a6;
+            --glass: rgba(255,255,255,0.04);
+            --maxwidth: 1200px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html, body {
+            height: 100%
+        }
+
+        body {
+            font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: linear-gradient(180deg,var(--bg) 0%, #0a0a0d 60%);
+            color: #e6eef6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.4;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block
+        }
+
+        /* ===== HEADER Y MENÚ ===== */
+        :target {
+            scroll-margin-top: 100px;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 60;
+            backdrop-filter: blur(6px);
+            background: linear-gradient(180deg, rgba(7,7,10,0.55), rgba(7,7,10,0.35));
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header-logo-section {
+            width: 100%;
+            max-width: var(--maxwidth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 20px 10px;
+        }
+
+        .header-nav-section {
+            width: 100%;
+            max-width: var(--maxwidth);
+            padding: 10px 20px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-top: 1px solid rgba(255,255,255,0.02);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+            .brand .logo-img {
+                width: auto;
+                height: 44px;
+                display: block;
+            }
+
+        nav.primary {
+            margin: 0;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+
+            .nav-list a {
+                position: relative;
+                color: var(--muted);
+                font-weight: 600;
+                text-decoration: none;
+                text-transform: uppercase;
+                font-size: 14px;
+                letter-spacing: 1px;
+                padding: 6px 4px;
+                transition: color .18s ease;
+            }
+
+                .nav-list a::after {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    height: 2px;
+                    bottom: -8px;
+                    background: linear-gradient(90deg,var(--accent), #9ff0d6);
+                    transform: scaleX(0);
+                    transform-origin: left;
+                    transition: transform .22s cubic-bezier(.2,.9,.2,1);
+                    border-radius: 2px;
+                    opacity: 0.95;
+                }
+
+                .nav-list a:hover {
+                    color: #fff
+                }
+
+                    .nav-list a:hover::after {
+                        transform: scaleX(1)
+                    }
+
+                .nav-list a.active {
+                    color: #fff
+                }
+
+                    .nav-list a.active::after {
+                        transform: scaleX(1)
+                    }
+
+        .burger {
+            display: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.02);
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+            .burger span {
+                display: block;
+                width: 18px;
+                height: 2px;
+                background: #dfe9ee;
+                border-radius: 1px;
+                transition: transform .2s;
+                box-shadow: 0 6px 0 #dfe9ee, 0 -6px 0 #dfe9ee;
+            }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 320px;
+            height: 100vh;
+            background: linear-gradient(180deg,#0b0d10,#050608);
+            box-shadow: -30px 0 80px rgba(0,0,0,0.6);
+            transition: right .28s cubic-bezier(.2,.9,.2,1);
+            z-index: 70;
+            padding: 28px;
+        }
+
+            .mobile-menu.open {
+                right: 0
+            }
+
+            .mobile-menu ul {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 18px;
+                margin-top: 30px
+            }
+
+            .mobile-menu a {
+                color: #eaf6f0;
+                text-decoration: none;
+                font-weight: 700
+            }
+
+        @media (max-width: 980px) {
+            .header-nav-section {
+                display: none;
+            }
+
+            .burger {
+                display: flex;
+                margin-left: auto;
+            }
+
+            .nav-list {
+                display: none;
+            }
+
+            .header-logo-section {
+                justify-content: space-between;
+            }
+        }
+
+        /* ===== HERO CON IMAGEN DE FONDO AUTOMÁTICA ===== */
+        .hero-container {
+            padding-top: 140px;
+            /* IMAGEN AUTOMÁTICA DESDE UNSPLASH: Carga una imagen aleatoria sobre energías renovables */
+            background-image: linear-gradient(rgba(7, 7, 10, 0.7), rgba(7, 7, 10, 0.85)), url('images/charlas.png');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+        }
+
+        .hero {
+            min-height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            max-width: var(--maxwidth);
+            margin: 0 auto;
+            gap: 16px;
+        }
+
+        .eyebrow {
+            color: var(--accent);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .hero h1 {
+            font-size: clamp(38px,6vw,72px);
+            line-height: 1;
+            margin-bottom: 12px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -1px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .hero p.lead {
+            color: #d1dde4;
+            font-size: 19px;
+            margin-bottom: 26px;
+            max-width: 55ch;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+        }
+
+        .cta-row {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 18px;
+            border-radius: 10px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform .12s ease, box-shadow .12s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg,var(--accent), #7ef2c6);
+            color: #02221a;
+            box-shadow: 0 8px 30px rgba(64,224,166,0.12);
+        }
+
+        .btn-ghost {
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px)
+        }
+
+        /* ===== ESTILOS PÁGINA DE CHARLAS ===== */
+        main {
+            padding-top: 0;
+        }
+
+        .section {
+            max-width: var(--maxwidth);
+            margin: 48px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.03);
+            box-shadow: 0 8px 40px rgba(2,6,9,0.45);
+            transition: transform .16s ease, box-shadow .16s ease;
+            overflow: hidden;
+        }
+
+            .card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 20px 60px rgba(2,6,9,0.6);
+            }
+
+        .card-image {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+            .card-content h2, .card-content h3 {
+                font-size: 18px;
+                margin-bottom: 8px;
+                color: #fff;
+            }
+
+            .card-content p, .card-content ul {
+                color: var(--muted);
+                font-size: 15px;
+            }
+
+            .card-content ul {
+                padding-left: 20px;
+                margin-top: 10px;
+            }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* ===== AJUSTE: ESTILOS PARA LA PRÓXIMA CHARLA ===== */
+        .card-featured {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            padding: 1.5rem;
+        }
+
+            .card-featured .card-image-container {
+                flex: 0 0 300px; /* Ancho fijo para la imagen */
+                width: 300px;
+                overflow: hidden;
+                border-radius: 8px;
+            }
+
+            .card-featured .card-content {
+                padding: 0;
+            }
+
+        @media (max-width: 768px) {
+            .card-featured {
+                flex-direction: column;
+                padding: 0;
+                gap: 0;
+            }
+
+                .card-featured .card-image-container {
+                    width: 100%;
+                    border-radius: 0;
+                }
+
+                .card-featured .card-content {
+                    padding: 20px;
+                }
+        }
+
+        /* ===== NUEVO: SECCIÓN DE CONTACTO (CTA) ===== */
+        .cta-section {
+            text-align: center;
+            background: var(--panel);
+            padding: 40px 20px;
+            border-radius: 12px;
+            margin-top: 60px;
+            margin-bottom: 60px;
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+
+            .cta-section h2 {
+                font-size: clamp(22px, 4vw, 28px);
+                margin-bottom: 8px;
+                color: #fff;
+            }
+
+            .cta-section p {
+                color: var(--muted);
+                margin-bottom: 24px;
+                font-size: 16px;
+                max-width: 45ch;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+        /* ===== VISOR DE IMÁGENES (LIGHTBOX) ===== */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .lightbox-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 85%;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+            .lightbox-close:hover, .lightbox-close:focus {
+                color: #bbb;
+                text-decoration: none;
+            }
+
+        /* ===== FOOTER ===== */
+        footer {
+            margin-top: 48px;
+            padding: 36px 20px;
+            background: transparent;
+            color: var(--muted);
+            border-top: 1px solid rgba(255,255,255,0.02);
+        }
+
+            footer .foot-inner {
+                max-width: var(--maxwidth);
+                margin: 0 auto;
+                display: flex;
+                justify-content: space-between;
+                gap: 20px;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+
+            footer a {
+                color: var(--muted);
+                text-decoration: underline;
+                font-size: 14px;
+            }
+    </style>
+</head>
+<body>
+    <a href="#main" style="position:absolute;left:-9999px;top:auto;clip:rect(0 0 0 0);">Saltar al contenido</a>
+
+    <header>
+        <div class="header-logo-section">
+            <a class="brand" href="index.html">
+                <img class="logo-img" src="images/Logo greentech blanco.png" alt="Logo GreenTech"
+                     style="height:44px; width:auto; display:block; margin-left:0;">
+                <span></span>
+            </a>
+            <button class="burger" id="burger" aria-label="Abrir menú"><span></span></button>
+            <nav class="primary" aria-label="Navegación principal">
+                <ul class="nav-list" role="menubar">
+                    <li role="none"><a role="menuitem" href="sobre.html">Sobre nosotros</a></li>
+                    <li role="none"><a role="menuitem" href="charlas.html" class="active" >Charlas</a></li>
+                    <li role="none"><a role="menuitem" href="proyectos.html">Proyectos</a></li>
+                    <li role="none"><a role="menuitem" href="concursos.html" >Concursos</a></li>
+                    <li role="none"><a role="menuitem" href="excursiones.html">Excursiones</a></li>
+                    <li role="none"><a role="menuitem" href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="display:flex;gap:12px;align-items:center">
+                <img src="images/Logo greentech blanco.png" alt="Logo GreenTech" style="width:auto;height:44px;object-fit:contain;">
+                <strong>GreenTech</strong>
+            </div>
+            <button id="closeMobile" style="background:none;border:0;color:#cfeee0;font-weight:700">Cerrar</button>
+        </div>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="sobre.html">Sobre nosotros</a></li>
+            <li><a href="charlas.html">Charlas</a></li>
+            <li><a href="proyectos.html">Proyectos</a></li>
+            <li><a href="concursos.html">Concursos</a></li>
+            <li><a href="excursiones.html">Excursiones</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <main id="main">
+        <div class="hero-container">
+            <section class="hero" aria-label="Sección principal">
+                <div class="eyebrow">Eventos y Conocimiento</div>
+                <h1>Green Talks</h1>
+                <p class="lead">Charlas educativas sobre energías renovables y sostenibilidad, impartidas por expertos del sector.</p>
+                <div class="cta-row">
+                    <a class="btn btn-primary" href="#off-shore">Ver Próxima Charla</a>
+                    <a class="btn btn-ghost" href="#historico">Ver Histórico</a>
+                </div>
+            </section>
+        </div>
+
+        <section id="off-shore" class="section">
+            <div class="card card-featured">
+                <div class="card-image-container">
+                    <img src="images/Poster offshore.png" alt="Ilustración de un parque eólico marino" class="card-image lightbox-trigger">
+                </div>
+                <div class="card-content">
+                    <h2>Off-Shore Wind Edition (Próxima)</h2>
+                    <p>
+                        <strong>Fecha:</strong> 22/11/2024 – 13:00 h<br>
+                        <strong>Lugar:</strong> Sala 3.1.S.08 (Biblioteca, campus Leganés)
+                    </p>
+                    <ul>
+                        <li>Market status</li>
+                        <li>Parques eólicos off-shore</li>
+                        <li>Oportunidades profesionales</li>
+                    </ul>
+                    <p><strong>Ponentes:</strong> Elena Reig Amorós, Ines Mignot</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="historico" class="section">
+            <h2 style="font-size:22px;margin-bottom:8px;color:#fff">Histórico de charlas</h2>
+            <p style="color:var(--muted);margin-bottom:12px">Charlas y eventos que hemos realizado en años anteriores.</p>
+
+            <div class="cards-grid" role="list">
+                <article class="card" role="listitem">
+                    <img src="images/Poster startup.png" alt="Personas colaborando en una startup" class="card-image lightbox-trigger">
+                    <div class="card-content">
+                        <h3>StartUps Edition</h3>
+                        <p>Expertos en startups del sector renovable compartieron su experiencia en creación, gestión y proyectos.</p>
+                    </div>
+                </article>
+
+                <article class="card" role="listitem">
+                    <img src="images/batteries.jpg" alt="Imagen de baterías de alta tecnología" class="card-image lightbox-trigger">
+                    <div class="card-content">
+                        <h3>Batteries Edition</h3>
+                        <p>Charlas sobre investigación en baterías de vanadio y reciclaje de baterías de litio con ponentes internacionales.</p>
+                    </div>
+                </article>
+
+                <article class="card" role="listitem">
+                    <img src="images/hydrogen.jpg" alt="Moléculas de hidrógeno verde" class="card-image lightbox-trigger">
+                    <div class="card-content">
+                        <h3>Hydrogen Edition</h3>
+                        <p>Se abordó el hidrógeno como vector energético, sus retos, viabilidad y aplicaciones industriales.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section cta-section">
+            <h2>¿Quieres sugerir una charla? ¿Tienes alguna duda?</h2>
+            <p>Tu opinión es importante para nosotros. ¡Contacta con el equipo!</p>
+            <a href="contacto.html" class="btn btn-primary">Contactar</a>
+        </section>
+
+    </main>
+
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <img class="lightbox-content" id="lightboxImage">
+    </div>
+
+    <footer>
+        <div class="foot-inner">
+            <div>© <strong>GreenTech Students</strong> — Universidad Carlos III de Madrid</div>
+            <div style="display:flex;gap:12px;align-items:center">
+                <a href="/politica-privacidad">Política de Privacidad</a>
+                <a href="/terminos-servicio">Términos</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Script para menú móvil
+        const burger = document.getElementById('burger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeBtn = document.getElementById('closeMobile');
+        burger?.addEventListener('click', () => { mobileMenu.classList.add('open'); mobileMenu.setAttribute('aria-hidden','false'); });
+        closeBtn?.addEventListener('click', () => { mobileMenu.classList.remove('open'); mobileMenu.setAttribute('aria-hidden','true'); });
+
+        // Script para efecto de desenfoque en header
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+        header.style.backdropFilter = window.scrollY > 40 ? 'blur(10px)' : 'blur(6px)';
+        });
+
+        // Script para scroll suave
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+        e.preventDefault();
+        const targetElement = document.querySelector(a.getAttribute('href'));
+        if (targetElement) {
+        const offsetTop = targetElement.offsetTop - 140;
+        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+        }
+        });
+        });
+
+        // Script para visor de imágenes (Lightbox)
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxTriggers = document.querySelectorAll('.lightbox-trigger');
+        const lightboxClose = document.getElementById('lightboxClose');
+        lightboxTriggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+        lightbox.style.display = 'block';
+        lightboxImage.src = trigger.src;
+        });
+        });
+        const closeLightbox = () => { lightbox.style.display = 'none'; }
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) { closeLightbox(); }
+        });
+    </script>
+</body>
+</html>

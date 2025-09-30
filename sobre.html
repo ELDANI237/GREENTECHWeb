@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>GreenTech Students — Sobre nosotros</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== Variables y reset básico ===== */
+        :root {
+            --bg: #07070a;
+            --panel: #0f1114;
+            --muted: #9aa3ab;
+            --accent: #40e0a6;
+            --glass: rgba(255,255,255,0.04);
+            --maxwidth: 1200px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html, body {
+            height: 100%
+        }
+
+        body {
+            font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: linear-gradient(180deg,var(--bg) 0%, #0a0a0d 60%);
+            color: #e6eef6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.4;
+        }
+        /* Estilos generales */
+        :target {
+            scroll-margin-top: 100px;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 60;
+            backdrop-filter: blur(6px);
+            background: linear-gradient(180deg, rgba(7,7,10,0.55), rgba(7,7,10,0.35));
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header-logo-section {
+            width: 100%;
+            max-width: var(--maxwidth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 20px 10px;
+        }
+
+        .header-nav-section {
+            width: 100%;
+            max-width: var(--maxwidth);
+            padding: 10px 20px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-top: 1px solid rgba(255,255,255,0.02);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+            .brand .logo-img {
+                width: 60px;
+                height: 60px;
+                border-radius: 10px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 800;
+                font-size: 14px;
+                box-shadow: 0 3px 14px rgba(0,0,0,0.5);
+            }
+
+            .brand span {
+                font-weight: 900;
+                letter-spacing: 1px;
+                font-size: 1.8rem;
+                color: #fff;
+                background: linear-gradient(90deg, #1abc9c, #40e0a6);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                text-shadow: 0 0 10px rgba(64,224,166,0.3);
+            }
+
+        nav.primary {
+            margin: 0;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+
+            .nav-list a {
+                position: relative;
+                color: var(--muted);
+                font-weight: 600;
+                text-decoration: none;
+                text-transform: uppercase;
+                font-size: 14px;
+                letter-spacing: 1px;
+                padding: 6px 4px;
+                transition: color .18s ease;
+            }
+
+                .nav-list a::after {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    height: 2px;
+                    bottom: -8px;
+                    background: linear-gradient(90deg,var(--accent), #9ff0d6);
+                    transform: scaleX(0);
+                    transform-origin: left;
+                    transition: transform .22s cubic-bezier(.2,.9,.2,1);
+                    border-radius: 2px;
+                    opacity: 0.95;
+                }
+
+                .nav-list a:hover {
+                    color: #fff
+                }
+
+                    .nav-list a:hover::after {
+                        transform: scaleX(1)
+                    }
+
+                .nav-list a.active {
+                    color: #fff
+                }
+
+                    .nav-list a.active::after {
+                        transform: scaleX(1)
+                    }
+
+        .burger {
+            display: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.02);
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+            .burger span {
+                display: block;
+                width: 18px;
+                height: 2px;
+                background: #dfe9ee;
+                border-radius: 1px;
+                transition: transform .2s;
+                box-shadow: 0 6px 0 #dfe9ee, 0 -6px 0 #dfe9ee;
+            }
+
+        .hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px 20px;
+            max-width: var(--maxwidth);
+            margin: calc(140px + 40px) auto 40px;
+            gap: 36px;
+            text-align: center;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-with-image {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            text-align: left;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+            .hero-image img {
+                max-width: 100%;
+                border-radius: 12px;
+                box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+            }
+
+        .eyebrow {
+            color: var(--accent);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 16px;
+            margin-bottom: 14px;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px,7vw,80px);
+            line-height: 0.92;
+            margin-bottom: 24px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -2px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        .hero p.lead {
+            color: #dbe8ee;
+            font-size: 20px;
+            margin-bottom: 30px;
+            max-width: 60ch;
+        }
+
+        .cta-row {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform .12s ease, box-shadow .12s ease;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg,var(--accent), #7ef2c6);
+            color: #02221a;
+            box-shadow: 0 10px 40px rgba(64,224,166,0.2);
+        }
+
+        .btn-ghost {
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #dbe8ee;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(64,224,166,0.3);
+        }
+
+        .section {
+            max-width: var(--maxwidth);
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border-radius: 18px;
+            padding: 30px;
+            min-height: auto;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 12px 60px rgba(2,6,9,0.55);
+            transition: transform .16s ease, box-shadow .16s ease;
+        }
+
+            .card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 25px 70px rgba(2,6,9,0.7);
+            }
+
+            .card h2 {
+                font-size: 28px;
+                margin-bottom: 16px;
+                color: #fff;
+                font-weight: 800;
+            }
+
+            .card h3 {
+                font-size: 20px;
+                margin-bottom: 12px;
+                color: #fff;
+                font-weight: 700;
+                margin-top: 24px;
+            }
+
+            .card p {
+                color: var(--muted);
+                font-size: 17px;
+                line-height: 1.6;
+            }
+
+            .card ul {
+                color: var(--muted);
+                font-size: 17px;
+                line-height: 1.6;
+                padding-left: 20px;
+                margin: 16px 0;
+            }
+
+            .card li {
+                margin-bottom: 8px;
+            }
+
+        footer {
+            margin-top: 80px;
+            padding: 40px 20px;
+            background: transparent;
+            color: var(--muted);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+            footer .foot-inner {
+                max-width: var(--maxwidth);
+                margin: 0 auto;
+                display: flex;
+                justify-content: space-between;
+                gap: 20px;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+
+            footer a {
+                color: var(--muted);
+                text-decoration: underline;
+                font-size: 14px;
+            }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 320px;
+            height: 100vh;
+            background: linear-gradient(180deg,#0b0d10,#050608);
+            box-shadow: -30px 0 80px rgba(0,0,0,0.6);
+            transition: right .28s cubic-bezier(.2,.9,.2,1);
+            z-index: 70;
+            padding: 28px;
+        }
+
+            .mobile-menu.open {
+                right: 0
+            }
+
+            .mobile-menu ul {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 18px;
+                margin-top: 30px
+            }
+
+            .mobile-menu a {
+                color: #eaf6f0;
+                text-decoration: none;
+                font-weight: 700
+            }
+
+        /* Media queries para responsividad */
+        @media (max-width: 980px) {
+            .header-nav-section {
+                display: none;
+            }
+
+            .burger {
+                display: flex;
+                margin-left: auto;
+            }
+
+            .hero {
+                flex-direction: column;
+                margin-top: calc(100px + 40px);
+            }
+
+            .hero-content {
+                text-align: center;
+            }
+
+            .hero-with-image {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav-list {
+                display: none;
+            }
+
+            .header-logo-section {
+                justify-content: space-between;
+            }
+
+            .brand span {
+                font-size: 1.5rem;
+            }
+
+            .brand .logo-img {
+                width: auto;
+                height: 50px;
+            }
+        }
+
+        @media (max-width:600px) {
+            .hero h1 {
+                font-size: clamp(30px, 10vw, 50px);
+            }
+
+            .hero p.lead {
+                font-size: 16px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+                .card h2 {
+                    font-size: 24px;
+                }
+
+                .card p {
+                    font-size: 14px;
+                }
+
+                .card ul {
+                    font-size: 14px;
+                }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main" style="position:absolute;left:-9999px;top:auto;clip:rect(0 0 0 0);">Saltar al contenido</a>
+
+    <header>
+        <div class="header-logo-section">
+            <a class="brand" href="index.html">
+                <img class="logo-img" src="images/Logo greentech blanco.png" alt="Logo GreenTech"
+                     style="height:44px; width:auto; display:block; margin-left:0;">
+                <span></span>
+            </a>
+            <button class="burger" id="burger" aria-label="Abrir menú"><span></span></button>
+            <nav class="primary" aria-label="Navegación principal">
+                <ul class="nav-list" role="menubar">
+                    <li role="none"><a role="menuitem" href="sobre.html" class="active" >Sobre nosotros</a></li>
+                    <li role="none"><a role="menuitem" href="charlas.html">Charlas</a></li>
+                    <li role="none"><a role="menuitem" href="proyectos.html">Proyectos</a></li>
+                    <li role="none"><a role="menuitem" href="concursos.html">Concursos</a></li>
+                    <li role="none"><a role="menuitem" href="excursiones.html">Excursiones</a></li>
+                    <li role="none"><a role="menuitem" href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="display:flex;gap:12px;align-items:center">
+                <img src="images/Logo greentech blanco.png" alt="Logo GreenTech" style="width:auto;height:44px;object-fit:contain;">
+                <strong>GreenTech</strong>
+            </div>
+            <button id="closeMobile" style="background:none;border:0;color:#cfeee0;font-weight:700">Cerrar</button>
+        </div>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="sobre.html">Sobre nosotros</a></li>
+            <li><a href="charlas.html">Charlas</a></li>
+            <li><a href="proyectos.html">Proyectos</a></li>
+            <li><a href="concursos.html">Concursos</a></li>
+            <li><a href="excursiones.html">Excursiones</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <main id="main">
+        <section class="hero" aria-label="Sección principal">
+            <div class="hero-content">
+                <div class="hero-with-image">
+                    <div class="hero-text">
+                        <div class="eyebrow">Sobre nosotros</div>
+                        <h1>Conoce más sobre GreenTech Students</h1>
+                        <p class="lead">La asociación de energías renovables de la Universidad Carlos III de Madrid</p>
+
+                        <div class="cta-row">
+                            <a class="btn btn-primary" href="#objetivos">Ver objetivos</a>
+                            <a class="btn btn-ghost" href="#historia">Nuestra historia</a>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <img src="images/greentech_nosotros.jpg" alt="Equipo de GreenTech Students" style="max-height: 400px;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="objetivos" class="section">
+            <div class="card">
+                <h2>Presentación y objetivos</h2>
+                <p>Somos una asociación oficial de la universidad Carlos III de Madrid y de la Comunidad de Madrid. Y como tal nuestros miembros son en su mayoría alumnos de la Escuela Politécnica Superior de Leganés y de otras universidades de Madrid.</p>
+
+                <p>Nuestra organización tiene como fines:</p>
+                <ul>
+                    <li>Desarrollar tecnología en base a las energías renovables</li>
+                    <li>Involucrar a la comunidad universitaria en el uso y aplicación de energías renovables</li>
+                    <li>Crecimiento educativo, personal y profesional de los integrantes de la asociación y la comunidad universitaria</li>
+                </ul>
+                <p>Actualmente organizamos <a href="/charlas" style="color:var(--accent);text-decoration:underline">charlas</a>, <a href="/excursiones" style="color:var(--accent);text-decoration:underline">excursiones</a> y <a href="/proyectos" style="color:var(--accent);text-decoration:underline">proyectos</a> con temática de energías renovables.</p>
+            </div>
+        </section>
+
+        <section id="organizacion" class="section">
+            <div class="card">
+                <h2>Organización</h2>
+                <p>De acuerdo a la <a href="https://www.uc3m.es/uc3m/media/uc3m/doc/archivo/doc_-modelo-de-estatutos/modelo-estatutos-de-una-asociacion.pdf" target="_blank" style="color:var(--accent);text-decoration:underline">normativa</a> de asociaciones de la UC3M nuestra organización está dirigida por una junta directiva que cuenta con un Presidente, un Secretario, un Tesorero y un Vicepresidente. Además de los miembros de la junta obligatorios por normativa también pertenecen a la junta un encargado de Recursos Humanos y un Director Creativo.</p>
+
+                <p>Los socios de GreenTech Students están divididos en tres grupos de acuerdo a su participación y compromiso:</p>
+
+                <h3>Veni:</h3>
+                <p>Una persona con estatus Veni es aquella que ha solicitado recibir información sobre las actividades de la asociación. Un Veni no participa en los grupos de trabajo, pero puede asistir a las actividades de la asociación. Para ser Veni, basta solo con pertenecer al boletín informativo de la asociación.</p>
+
+                <h3>Vidi:</h3>
+                <p>Una persona Vidi es aquella que recientemente ha comenzado o ha retomado su actividad en la asociación. Forma parte de los grupos de trabajo y puede participar de actividades exclusivas de la asociación. Para convertirse en Vidi, se debe asumir participación en un grupo de trabajo.</p>
+
+                <h3>Vici:</h3>
+                <p>Un Vici tiene los mismos derechos que un Vidi, pero se distingue por el nivel de compromiso y la opción a voto y a postularse para la Junta Directiva. Para convertirse en Vici, se debe participar de forma activa durante un periodo mínimo de 4 meses y la Junta Directiva debe aprobar este cambio.</p>
+            </div>
+        </section>
+
+        <section id="historia" class="section" style="margin-top:30px">
+            <div class="card">
+                <h2>Historia de la asociación</h2>
+                <p>La historia de Greentech es bastante breve, fue creada en 2021 y hasta ahora ya hemos realizado exitosamente varias charlas, proyectos y excursiones.</p>
+            </div>
+        </section>
+
+        <footer>
+            <div class="foot-inner">
+                <div>© <strong>GreenTech Students</strong> — Universidad Carlos III de Madrid</div>
+                <div style="display:flex;gap:12px;align-items:center">
+                    <a href="/politica-privacidad">Política de Privacidad</a>
+                    <a href="/terminos-servicio">Términos</a>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        // Mobile menu toggle
+        const burger = document.getElementById('burger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeBtn = document.getElementById('closeMobile');
+
+        burger?.addEventListener('click', () => {
+        mobileMenu.classList.add('open');
+        mobileMenu.setAttribute('aria-hidden','false');
+        });
+        closeBtn?.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        mobileMenu.setAttribute('aria-hidden','true');
+        });
+
+        // Header compact on scroll (subtle)
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+        const sc = window.scrollY;
+        if (sc > 40) header.style.backdropFilter = 'blur(10px)';
+        else header.style.backdropFilter = 'blur(6px)';
+        });
+
+        // Optional: smooth scroll for internal links
+        // Ajuste de scroll para enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+        e.preventDefault();
+        const targetId = a.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+
+        if (targetElement) {
+        // Offset de 100px para el encabezado fijo
+        const offsetTop = targetElement.offsetTop - 100;
+
+        window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
+        });
+        }
+        });
+        });
+    </script>
+</body>
+</html>

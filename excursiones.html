@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>GreenTech Students — Excursiones</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== Variables y reset básico ===== */
+        :root {
+            --bg: #07070a;
+            --panel: #0f1114;
+            --muted: #9aa3ab;
+            --accent: #40e0a6;
+            --glass: rgba(255,255,255,0.04);
+            --maxwidth: 1200px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html, body {
+            height: 100%
+        }
+
+        body {
+            font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: linear-gradient(180deg,var(--bg) 0%, #0a0a0d 60%);
+            color: #e6eef6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.4;
+        }
+        /* Estilos generales */
+        :target {
+            scroll-margin-top: 100px;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 60;
+            backdrop-filter: blur(6px);
+            background: linear-gradient(180deg, rgba(7,7,10,0.55), rgba(7,7,10,0.35));
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header-logo-section {
+            width: 100%;
+            max-width: var(--maxwidth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 20px 10px;
+        }
+
+        .header-nav-section {
+            width: 100%;
+            max-width: var(--maxwidth);
+            padding: 10px 20px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-top: 1px solid rgba(255,255,255,0.02);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+            .brand .logo-img {
+                width: 60px;
+                height: 60px;
+                border-radius: 10px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 800;
+                font-size: 14px;
+                box-shadow: 0 3px 14px rgba(0,0,0,0.5);
+            }
+
+            .brand span {
+                font-weight: 900;
+                letter-spacing: 1px;
+                font-size: 1.8rem;
+                color: #fff;
+                background: linear-gradient(90deg, #1abc9c, #40e0a6);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                text-shadow: 0 0 10px rgba(64,224,166,0.3);
+            }
+
+        nav.primary {
+            margin: 0;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+
+            .nav-list a {
+                position: relative;
+                color: var(--muted);
+                font-weight: 600;
+                text-decoration: none;
+                text-transform: uppercase;
+                font-size: 14px;
+                letter-spacing: 1px;
+                padding: 6px 4px;
+                transition: color .18s ease;
+            }
+
+                .nav-list a::after {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    height: 2px;
+                    bottom: -8px;
+                    background: linear-gradient(90deg,var(--accent), #9ff0d6);
+                    transform: scaleX(0);
+                    transform-origin: left;
+                    transition: transform .22s cubic-bezier(.2,.9,.2,1);
+                    border-radius: 2px;
+                    opacity: 0.95;
+                }
+
+                .nav-list a:hover {
+                    color: #fff
+                }
+
+                    .nav-list a:hover::after {
+                        transform: scaleX(1)
+                    }
+
+                .nav-list a.active {
+                    color: #fff
+                }
+
+                    .nav-list a.active::after {
+                        transform: scaleX(1)
+                    }
+
+        .burger {
+            display: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.02);
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+            .burger span {
+                display: block;
+                width: 18px;
+                height: 2px;
+                background: #dfe9ee;
+                border-radius: 1px;
+                transition: transform .2s;
+                box-shadow: 0 6px 0 #dfe9ee, 0 -6px 0 #dfe9ee;
+            }
+
+        .hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px 20px;
+            max-width: var(--maxwidth);
+            margin: calc(140px + 40px) auto 40px;
+            text-align: center;
+            background-image: url('https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+        }
+
+            .hero::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.6);
+                z-index: 1;
+            }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-with-image {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            text-align: left;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+            .hero-image img {
+                max-width: 100%;
+                border-radius: 12px;
+                box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+            }
+
+        .eyebrow {
+            color: var(--accent);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 16px;
+            margin-bottom: 14px;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px,7vw,80px);
+            line-height: 0.92;
+            margin-bottom: 24px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -2px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        .hero p.lead {
+            color: #dbe8ee;
+            font-size: 20px;
+            margin-bottom: 30px;
+            max-width: 60ch;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        .cta-row {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform .12s ease, box-shadow .12s ease;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg,var(--accent), #7ef2c6);
+            color: #02221a;
+            box-shadow: 0 10px 40px rgba(64,224,166,0.2);
+        }
+
+        .btn-ghost {
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #dbe8ee;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(64,224,166,0.3);
+        }
+
+        .section {
+            max-width: var(--maxwidth);
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border-radius: 18px;
+            padding: 30px;
+            min-height: auto;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 12px 60px rgba(2,6,9,0.55);
+            transition: all .16s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+            .card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 25px 70px rgba(2,6,9,0.7);
+                border-color: rgba(64,224,166,0.2);
+            }
+
+            /* Indicador visual de que es clickeable */
+            .card::after {
+                content: '🔍 Ver detalles';
+                position: absolute;
+                bottom: 15px;
+                right: 15px;
+                font-size: 12px;
+                color: var(--accent);
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            .card:hover::after {
+                opacity: 1;
+            }
+
+            .card h2 {
+                font-size: 28px;
+                margin-bottom: 16px;
+                color: #fff;
+                font-weight: 800;
+            }
+
+            .card h3 {
+                font-size: 20px;
+                margin-bottom: 12px;
+                color: #fff;
+                font-weight: 700;
+                margin-top: 24px;
+            }
+
+            .card p {
+                color: var(--muted);
+                font-size: 17px;
+                line-height: 1.6;
+            }
+
+            .card ul {
+                color: var(--muted);
+                font-size: 17px;
+                line-height: 1.6;
+                padding-left: 20px;
+                margin: 16px 0;
+            }
+
+            .card li {
+                margin-bottom: 8px;
+            }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        footer {
+            margin-top: 80px;
+            padding: 40px 20px;
+            background: transparent;
+            color: var(--muted);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+            footer .foot-inner {
+                max-width: var(--maxwidth);
+                margin: 0 auto;
+                display: flex;
+                justify-content: space-between;
+                gap: 20px;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+
+            footer a {
+                color: var(--muted);
+                text-decoration: underline;
+                font-size: 14px;
+            }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 320px;
+            height: 100vh;
+            background: linear-gradient(180deg,#0b0d10,#050608);
+            box-shadow: -30px 0 80px rgba(0,0,0,0.6);
+            transition: right .28s cubic-bezier(.2,.9,.2,1);
+            z-index: 70;
+            padding: 28px;
+        }
+
+            .mobile-menu.open {
+                right: 0
+            }
+
+            .mobile-menu ul {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 18px;
+                margin-top: 30px
+            }
+
+            .mobile-menu a {
+                color: #eaf6f0;
+                text-decoration: none;
+                font-weight: 700
+            }
+
+        /* ===== NUEVOS ESTILOS PARA LA SECCIÓN DETALLADA ===== */
+        .excursion-detail {
+            display: none;
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border-radius: 18px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 12px 60px rgba(2,6,9,0.55);
+            margin: 30px 0;
+        }
+
+            .excursion-detail.active {
+                display: block;
+            }
+
+        .close-detail {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: inline-block;
+            transition: background 0.3s ease;
+        }
+
+            .close-detail:hover {
+                background: rgba(255,255,255,0.1);
+            }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+            .gallery-item:hover {
+                transform: scale(1.03);
+            }
+
+            .gallery-item img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+                display: block;
+            }
+
+        .detail-section {
+            margin: 30px 0;
+        }
+
+            .detail-section h3 {
+                color: var(--accent);
+                margin-bottom: 15px;
+                font-size: 22px;
+            }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .info-item {
+            background: rgba(255,255,255,0.02);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
+        }
+
+            .info-item h4 {
+                color: #fff;
+                margin-bottom: 8px;
+                font-size: 16px;
+            }
+
+            .info-item p {
+                margin: 0;
+                color: var(--muted);
+            }
+
+        .no-photos-message {
+            text-align: center;
+            padding: 40px;
+            color: var(--muted);
+            font-style: italic;
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+            border: 1px dashed rgba(255,255,255,0.1);
+        }
+
+        /* Media queries para responsividad */
+        @media (max-width: 980px) {
+            .header-nav-section {
+                display: none;
+            }
+
+            .burger {
+                display: flex;
+                margin-left: auto;
+            }
+
+            .hero {
+                flex-direction: column;
+                margin-top: calc(100px + 40px);
+            }
+
+            .hero-content {
+                text-align: center;
+            }
+
+            .hero-with-image {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav-list {
+                display: none;
+            }
+
+            .header-logo-section {
+                justify-content: space-between;
+            }
+
+            .brand span {
+                font-size: 1.5rem;
+            }
+
+            .brand .logo-img {
+                width: auto;
+                height: 50px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card::after {
+                opacity: 1; /* Siempre visible en móvil */
+            }
+        }
+
+        @media (max-width:600px) {
+            .hero h1 {
+                font-size: clamp(30px, 10vw, 50px);
+            }
+
+            .hero p.lead {
+                font-size: 16px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+                .card h2 {
+                    font-size: 24px;
+                }
+
+                .card p {
+                    font-size: 14px;
+                }
+
+                .card ul {
+                    font-size: 14px;
+                }
+
+            .excursion-detail {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main" style="position:absolute;left:-9999px;top:auto;clip:rect(0 0 0 0);">Saltar al contenido</a>
+
+    <header>
+        <div class="header-logo-section">
+            <a class="brand" href="index.html">
+                <img class="logo-img" src="images/Logo greentech blanco.png" alt="Logo GreenTech"
+                     style="height:44px; width:auto; display:block; margin-left:0;">
+                <span></span>
+            </a>
+            <button class="burger" id="burger" aria-label="Abrir menú"><span></span></button>
+            <nav class="primary" aria-label="Navegación principal">
+                <ul class="nav-list" role="menubar">
+                    <li role="none"><a role="menuitem" href="sobre.html">Sobre nosotros</a></li>
+                    <li role="none"><a role="menuitem" href="charlas.html">Charlas</a></li>
+                    <li role="none"><a role="menuitem" href="proyectos.html">Proyectos</a></li>
+                    <li role="none"><a role="menuitem" href="concursos.html">Concursos</a></li>
+                    <li role="none"><a role="menuitem" class="active" href="excursiones.html">Excursiones</a></li>
+                    <li role="none"><a role="menuitem" href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="display:flex;gap:12px;align-items:center">
+                <img src="images/Logo greentech blanco.png" alt="Logo GreenTech" style="width:auto;height:44px;object-fit:contain;">
+                <strong>GreenTech</strong>
+            </div>
+            <button id="closeMobile" style="background:none;border:0;color:#cfeee0;font-weight:700">Cerrar</button>
+        </div>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="sobre.html">Sobre nosotros</a></li>
+            <li><a href="charlas.html">Charlas</a></li>
+            <li><a href="proyectos.html">Proyectos</a></li>
+            <li><a href="concursos.html">Concursos</a></li>
+            <li><a href="excursiones.html">Excursiones</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <main id="main">
+        <section class="hero" aria-label="Sección principal">
+            <div class="hero-content">
+                <div class="eyebrow">Excursiones</div>
+                <h1>Visitas prácticas y educativas</h1>
+                <p class="lead">Explora las instalaciones más innovadoras del sector de las energías renovables y la tecnología.</p>
+
+                <div class="cta-row">
+                    <a class="btn btn-primary" href="#visitas">Ver visitas</a>
+                    <a class="btn btn-ghost" href="#join">Únete</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="visitas" class="section" aria-labelledby="visitasTitle">
+            <h2 id="visitasTitle" style="font-size:28px;margin-bottom:16px;color:#fff">Últimas visitas</h2>
+            <p style="color:var(--muted);margin-bottom:20px">Explora las instalaciones más innovadoras de la energía.</p>
+
+            <div class="cards-grid" role="list">
+                <article class="card" role="listitem" onclick="showExcursionDetail('bolarque')">
+                    <h3>Embalse de Bolarque</h3>
+                    <p>Visita a la central hidroeléctrica del Embalse de Bolarque, realizada el 15 de octubre de 2024. Una experiencia fascinante para comprender la generación de energía hidroeléctrica y su importancia en el sistema eléctrico nacional.</p>
+                </article>
+
+                <article class="card" role="listitem" onclick="showExcursionDetail('yingli')">
+                    <h3>Fábrica de paneles Yingli Solar</h3>
+                    <p>Excursión realizada el 16 de febrero de 2024. Visitamos la fábrica de paneles solares Yingli Solar donde aprendimos sobre el proceso de fabricación y los últimos avances en tecnología fotovoltaica.</p>
+                </article>
+
+            </div>
+
+            <!-- SECCIÓN DETALLADA DEL EMBALSE DE BOLARQUE -->
+            <div id="bolarque-detail" class="excursion-detail">
+                <div class="close-detail" onclick="hideExcursionDetail()">← Volver a excursiones</div>
+
+                <h2>Embalse de Bolarque - Central Hidroeléctrica</h2>
+                <p style="color:var(--muted);margin-bottom:30px">Visita técnica realizada entre el 6 y el 7 de Septiembre de 2025</p>
+
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="images/bolarque.jpg" alt="Vista panorámica del Embalse de Bolarque">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/bolarque3.jpg" alt="Turbinas de la central hidroeléctrica">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/bolarque2.jpg" alt="Sala de control de la central">
+                    </div>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h4>📅 Fecha</h4>
+                        <p>6-7 Septiembre, 2025</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>👥 Participantes</h4>
+                        <p>11 estudiantes de GreenTech</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>📍 Ubicación</h4>
+                        <p>Entre Almonacid de Zorita y Pastrana, Guadalajara</p>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h3>📋 Descripción de la visita</h3>
+                    <p>El Embalse de Bolarque es una de las centrales hidroeléctricas más importantes del sistema del Tajo. Durante nuestra visita:</p>
+                    <ul>
+                        <li>Recorrimos las instalaciones principales con guías especializados</li>
+                        <li>Conocimos el funcionamiento de las turbinas Francis y Kaplan</li>
+                        <li>Visitamos la sala de control desde donde se gestiona la producción</li>
+                        <li>Aprendimos sobre el sistema de presas y compuertas</li>
+                        <li>Comprendimos la importancia del bombeo reversible para el almacenamiento energético</li>
+                    </ul>
+                </div>
+
+                <div class="detail-section">
+                    <h3>⚡ Datos técnicos</h3>
+                    <ul>
+                        <li><strong>Capacidad:</strong> 31 MW de potencia instalada</li>
+                        <li><strong>Tipo:</strong> Central de bombeo puro</li>
+                        <li><strong>Producción anual:</strong> 40 GWh (aproximadamente)</li>
+                        <li><strong>Altura de caída:</strong> 90 metros</li>
+                        <li><strong>Inauguración:</strong> 1910 (con varias modernizaciones)</li>
+                    </ul>
+                </div>
+
+                <div class="detail-section">
+                    <h3>📸 Galería adicional</h3>
+                    <div class="gallery-grid">
+                        <div class="gallery-item">
+                            <img src="images/bolarque1.jpg" alt="Vista aérea del embalse">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h3>💡 Lo que aprendimos</h3>
+                    <p>Esta visita nos permitió comprender en profundidad:</p>
+                    <ul>
+                        <li>El papel crucial de la hidroelectricidad en la transición energética</li>
+                        <li>La importancia del bombeo reversible para almacenar energía renovable</li>
+                        <li>Los desafíos técnicos de la gestión de recursos hídricos</li>
+                        <li>La evolución histórica de la tecnología hidroeléctrica en España</li>
+                        <li>Las oportunidades profesionales en el sector de las energías renovables</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SECCIÓN DETALLADA DE YINGLI SOLAR -->
+            <div id="yingli-detail" class="excursion-detail">
+                <div class="close-detail" onclick="hideExcursionDetail()">← Volver a excursiones</div>
+
+                <h2>Fábrica de Paneles Yingli Solar</h2>
+                <p style="color:var(--muted);margin-bottom:30px">Visita técnica realizada el 16 de Febrero de 2024</p>
+
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="images/Yingli.jpg" alt="Vista panorámica del Embalse de Bolarque">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/Yingli1.jpg" alt="Turbinas de la central hidroeléctrica">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/Yingli2.jpg" alt="Sala de control de la central">
+                    </div>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h4>📅 Fecha</h4>
+                        <p>16 Febrero, 2024</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>👥 Participantes</h4>
+                        <p>18 estudiantes de GreenTech</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>📍 Ubicación</h4>
+                        <p>Planta industrial de Yingli Solar</p>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h3>📋 Descripción de la visita</h3>
+                    <p>Yingli Solar es uno de los principales fabricantes mundiales de paneles solares. Durante nuestra visita a sus instalaciones:</p>
+                    <ul>
+                        <li>Recorrimos la línea completa de producción de paneles fotovoltaicos</li>
+                        <li>Observamos el proceso de fabricación de células solares de silicio</li>
+                        <li>Conocimos las técnicas de ensamblaje y encapsulado de los paneles</li>
+                        <li>Presenciamos los rigurosos controles de calidad que se realizan</li>
+                        <li>Aprendimos sobre los diferentes tipos de tecnología fotovoltaica</li>
+                    </ul>
+                </div>
+
+                <div class="detail-section">
+                    <h3>⚡ Datos técnicos</h3>
+                    <ul>
+                        <li><strong>Capacidad de producción:</strong> 2.5 GW anuales</li>
+                        <li><strong>Tecnologías:</strong> Mono-PERC, Multi-cristalino, Bifacial</li>
+                        <li><strong>Eficiencia de paneles:</strong> Hasta 21.3%</li>
+                        <li><strong>Garantía de producto:</strong> 12-15 años</li>
+                        <li><strong>Garantía de rendimiento:</strong> 25-30 años</li>
+                    </ul>
+                </div>
+
+                <div class="detail-section">
+                    <h3>🏭 Proceso de fabricación observado</h3>
+                    <ul>
+                        <li><strong>Corte de obleas de silicio:</strong> Proceso de wire sawing</li>
+                        <li><strong>Texturizado y limpieza:</strong> Para reducir reflexión</li>
+                        <li><strong>Difusión de fósforo:</strong> Para crear unión P-N</li>
+                        <li><strong>Impresión de contactos:</strong> Serigrafía metálica</li>
+                        <li><strong>Encapsulado:</strong> EVA y vidrio templado</li>
+                        <li><strong>Curado en autoclave:</strong> Laminación de paneles</li>
+                        <li><strong>Marcado y testing:</strong> Control de calidad final</li>
+                    </ul>
+                </div>
+
+                <div class="detail-section">
+                    <h3>💡 Lo que aprendimos</h3>
+                    <p>Esta visita nos permitió comprender en profundidad:</p>
+                    <ul>
+                        <li>La complejidad del proceso industrial de fabricación de paneles solares</li>
+                        <li>Los avances en eficiencia y reducción de costos en energía fotovoltaica</li>
+                        <li>La importancia de los controles de calidad en la durabilidad de los paneles</li>
+                        <li>Las tendencias futuras en tecnología solar (bifacial, heterounión, etc.)</li>
+                        <li>Las oportunidades de empleo en la industria de manufactura solar</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="proximas" class="section">
+            <div class="card">
+                <h2>Próximas excursiones</h2>
+                <p>Estamos organizando nuevas visitas para el próximo trimestre. Estas son algunas de las excursiones que estamos planificando:</p>
+
+                <h3>Central Nuclear de Trillo (Tecnatom)</h3>
+                <p>Visita al simulador de la central nuclear de Trillo. Una experiencia única para comprender el funcionamiento de las centrales nucleares y sus sistemas de seguridad.</p>
+
+                <h3>Central Hidroeléctrica de Aldeadávila</h3>
+                <p>Una de las centrales hidroeléctricas más grandes de España, con una capacidad de 1.243 MW.</p>
+
+                <h3>Planta Solar Termoeléctrica Gemasolar</h3>
+                <p>La primera planta comercial del mundo que aplica la tecnología de torre central y almacenamiento en sales fundidas.</p>
+
+                <h3>Centro de Control de Red Eléctrica</h3>
+                <p>Visita al centro desde donde se gestiona y supervisa todo el sistema eléctrico nacional.</p>
+
+                <p style="margin-top: 20px;"><strong>¿Tienes sugerencias?</strong> Escríbenos a <a href="mailto:greentech.asoc@uc3m.es" style="color:var(--accent);text-decoration:underline">greentech.asoc@uc3m.es</a> con tus ideas para nuevas excursiones.</p>
+            </div>
+        </section>
+
+        <section id="join" class="section" style="text-align:center;margin-top:60px">
+            <div class="card" style="max-width:900px;margin:0 auto;">
+                <h2 style="font-size:28px;margin-bottom:16px">¿Quieres participar en nuestras excursiones?</h2>
+                <p style="color:var(--muted);margin-bottom:30px">Únete a GreenTech Students para no perderte ninguna de nuestras visitas técnicas y educativas. Abiertas a todos los estudiantes de la UC3M.</p>
+                <a class="btn btn-primary" href="mailto:greentech.asoc@uc3m.es">Contactar por email</a>
+            </div>
+        </section>
+
+        <footer>
+            <div class="foot-inner">
+                <div>© <strong>GreenTech Students</strong> — Universidad Carlos III de Madrid</div>
+                <div style="display:flex;gap:12px;align-items:center">
+                    <a href="/politica-privacidad">Política de Privacidad</a>
+                    <a href="/terminos-servicio">Términos</a>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        // Mobile menu toggle
+        const burger = document.getElementById('burger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeBtn = document.getElementById('closeMobile');
+
+        burger?.addEventListener('click', () => {
+        mobileMenu.classList.add('open');
+        mobileMenu.setAttribute('aria-hidden','false');
+        });
+        closeBtn?.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        mobileMenu.setAttribute('aria-hidden','true');
+        });
+
+        // Header compact on scroll (subtle)
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+        const sc = window.scrollY;
+        if (sc > 40) header.style.backdropFilter = 'blur(10px)';
+        else header.style.backdropFilter = 'blur(6px)';
+        });
+
+        // Optional: smooth scroll for internal links
+        // Ajuste de scroll para enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+        e.preventDefault();
+        const targetId = a.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+
+        if (targetElement) {
+        // Offset de 100px para el encabezado fijo
+        const offsetTop = targetElement.offsetTop - 100;
+
+        window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
+        });
+        }
+        });
+        });
+
+        // Funciones para mostrar/ocultar detalles de excursión
+        function showExcursionDetail(excursionId) {
+        // Ocultar todas las secciones de detalle
+        document.querySelectorAll('.excursion-detail').forEach(detail => {
+        detail.classList.remove('active');
+        });
+
+        // Mostrar la sección específica
+        const detailSection = document.getElementById(`${excursionId}-detail`);
+        if (detailSection) {
+        detailSection.classList.add('active');
+
+        // Scroll a la sección
+        detailSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        }
+
+        function hideExcursionDetail() {
+        // Ocultar todas las secciones de detalle
+        document.querySelectorAll('.excursion-detail').forEach(detail => {
+        detail.classList.remove('active');
+        });
+
+        // Scroll de vuelta a la sección de visitas
+        document.getElementById('visitas').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
